@@ -1,0 +1,45 @@
+class Solution {
+    public String convert(String s, int numRows) {
+
+        // If only one row or string length is less than number of rows
+        if (numRows == 1 || s.length() <= numRows) {
+            return s;
+        }
+
+        // Create StringBuilder for each row
+        StringBuilder[] rows = new StringBuilder[numRows];
+
+        for (int i = 0; i < numRows; i++) {
+            rows[i] = new StringBuilder();
+        }
+
+        int currentRow = 0;
+        boolean goingDown = true;
+
+        // Traverse each character
+        for (int i = 0; i < s.length(); i++) {
+            rows[currentRow].append(s.charAt(i));
+
+            if (currentRow == 0) {
+                goingDown = true;
+            } else if (currentRow == numRows - 1) {
+                goingDown = false;
+            }
+
+            if (goingDown) {
+                currentRow++;
+            } else {
+                currentRow--;
+            }
+        }
+
+        // Combine all rows
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < numRows; i++) {
+            result.append(rows[i]);
+        }
+
+        return result.toString();
+    }
+}
